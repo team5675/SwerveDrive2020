@@ -19,13 +19,13 @@ public class Robot extends TimedRobot {
 	public GenericHID Controller  = new XboxController (0);
 	
 	
-	private WheelDrive backRight = new WheelDrive(0, 0, 0);//actual  port ID's of angle, speed, encoders here
+	private WheelDrive backRight = new WheelDrive(0, 0);//actual  port ID's of angle and speed motors
 
-	private WheelDrive backLeft = new WheelDrive(0, 0, 0);//(In that order)
+	private WheelDrive backLeft = new WheelDrive(0, 0);//(In that order)
 
-	private WheelDrive frontRight = new WheelDrive(0, 0, 0);
+	private WheelDrive frontRight = new WheelDrive(0, 0);
 
-	private WheelDrive frontLeft = new WheelDrive(0, 0, 0);
+	private WheelDrive frontLeft = new WheelDrive(0, 0);
 	
 	private SwerveDrive swerveDrive = new SwerveDrive (backRight, backLeft, frontRight, frontLeft);
 

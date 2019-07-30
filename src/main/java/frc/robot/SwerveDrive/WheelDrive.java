@@ -22,7 +22,7 @@ private CANEncoder m_encoder;
 private double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
 
 
-public WheelDrive (int angleMotor, int speedMotor, int encoder) { //Idk if this is even close to correct...
+public WheelDrive (int angleMotor, int speedMotor) { //Idk if this is even close to correct...
 	
 	this.angleMotor = new CANSparkMax(angleMotor, MotorType.kBrushless);
 	
