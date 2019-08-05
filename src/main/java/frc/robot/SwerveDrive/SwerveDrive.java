@@ -4,7 +4,7 @@ package frc.robot.SwerveDrive;
 
 public class SwerveDrive {
 
-	public double L = 33;//length of wheel axle distances
+	public double L = 30;//length of wheel axle distances
 	
 	public double W = 28;//width of wheel axle distances
 	
@@ -37,22 +37,22 @@ public class SwerveDrive {
 		double frontLeftSpeed = 0;
 		
 			
-		backRightSpeed = Math.sqrt ((a * a ) + (d * d));//because going forward is important
+		backRightSpeed = Math.hypot(a, d);//because going forward is important
 			
-		backLeftSpeed = Math.sqrt ((a * a ) + (c * c));
+		backLeftSpeed = Math.hypot(a, c);;
 					
-		frontRightSpeed = Math.sqrt ((b * b ) + (d * d));
+		frontRightSpeed = Math.hypot(b, d);
 					
-		frontLeftSpeed = Math.sqrt ((b * b ) + (c * c));
+		frontLeftSpeed = Math.hypot(b, c);
 		
 		
-		double backRightAngle = Math.atan2 (a, d) / Math.PI; //yeah! Polar bears and stuff
+		double backRightAngle = Math.atan2(a, d) * 0.5 / Math.PI; //yeah! Polar bears and stuff
 		
-		double backLeftAngle = Math.atan2 (a, c) / Math.PI;
+		double backLeftAngle = Math.atan2(a, c) * 0.5 / Math.PI;
 		
-		double frontRightAngle = Math.atan2 (b, d) / Math.PI;
+		double frontRightAngle = Math.atan2(b, d) * 0.5/ Math.PI;
 		
-		double frontLeftAngle = Math.atan2 (b, c) / Math.PI;
+		double frontLeftAngle = Math.atan2(b, c) * 0.5/ Math.PI;
 		
 		
 		backRight.drive(backRightSpeed, backRightAngle); //just using a class to organize modules together

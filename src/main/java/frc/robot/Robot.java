@@ -19,13 +19,13 @@ public class Robot extends TimedRobot {
 	public GenericHID Controller  = new XboxController (0);
 	
 	
-	private WheelDrive backRight = new WheelDrive(0, 0);//actual  port ID's of angle and speed motors
+	private WheelDrive backRight = new WheelDrive(1, 2);//actual  port ID's of angle and speed motors
 
-	private WheelDrive backLeft = new WheelDrive(0, 0);//(In that order)
+	private WheelDrive backLeft = new WheelDrive(3, 4);//(In that order)
 
-	private WheelDrive frontRight = new WheelDrive(0, 0);
+	private WheelDrive frontRight = new WheelDrive(5, 6);
 
-	private WheelDrive frontLeft = new WheelDrive(0, 0);
+	private WheelDrive frontLeft = new WheelDrive(7, 8);
 	
 	private SwerveDrive swerveDrive = new SwerveDrive (backRight, backLeft, frontRight, frontLeft);
 
@@ -81,7 +81,7 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		
 		
-		swerveDrive.drive (Controller.getRawAxis(1), Controller.getRawAxis(0), Controller.getRawAxis(4), ahrs.getYaw()); //get them inputs
+		swerveDrive.drive (Controller.getRawAxis(1) * -1, Controller.getRawAxis(0), Controller.getRawAxis(4), ahrs.getYaw()); //get them inputs
 		
 		
 	}
