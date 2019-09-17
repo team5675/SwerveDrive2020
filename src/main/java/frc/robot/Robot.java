@@ -63,11 +63,8 @@ public class Robot extends TimedRobot {
 	
 	@Override
 	public void autonomousPeriodic() {
+
 		Scheduler.getInstance().run();
-		
-		
-		
-		
 	}
 
 	
@@ -82,8 +79,6 @@ public class Robot extends TimedRobot {
 		
 		
 		swerveDrive.drive (Controller.getRawAxis(1) * -1, Controller.getRawAxis(0), Controller.getRawAxis(4), ahrs.getYaw()); //get them inputs
-		
-		
 	}
 
 	

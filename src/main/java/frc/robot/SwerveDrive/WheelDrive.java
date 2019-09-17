@@ -5,6 +5,7 @@ import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANAnalog;
 
 
 public class WheelDrive {
@@ -17,21 +18,28 @@ private CANPIDController m_pidController;
 
 private double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
 
+private CANAnalog a_Encoder;
+
 
 public WheelDrive (int angleMotor, int speedMotor) { //Idk if this is even close to correct...
 
-    CANEncoder m_encoder;
+	//CANEncoder m_encoder;
 	
+	//create our "wheels"
 	this.angleMotor = new CANSparkMax(angleMotor, MotorType.kBrushless);
-	
 	this.speedMotor = new CANSparkMax(speedMotor, MotorType.kBrushless);
+
+	//grab the encoder values off of each MAX
+	a_Encoder = this.angleMotor.getAnalog(CANAnalog.AnalogMode.kAbsolute);
 
 	//create the PID object
 	m_pidController = this.angleMotor.getPIDController();
 
-	//encoder on the NEO 
-	//TODO: switch out for different encoder, maybe a mag encoder
-    m_encoder = this.angleMotor.getEncoder();
+	//encoder on the NEO
+	//m_encoder = this.angleMotor.getEncoder();
+	
+	//set our PID loop to take the analog encoder as feedback
+	m_pidController.setFeedbackDevice(a_Encoder);
 
 	//PID's
 	kP = 0.45; 
