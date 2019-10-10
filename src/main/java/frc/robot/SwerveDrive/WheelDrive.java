@@ -1,10 +1,10 @@
 package frc.robot.SwerveDrive;
 
-import com.revrobotics.CANPIDController;
+//import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
+//import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.revrobotics.CANAnalog;
+//import com.revrobotics.CANAnalog;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -16,15 +16,17 @@ private CANSparkMax angleMotor;
 
 private CANSparkMax speedMotor;
 
+/*
 private CANPIDController m_pidController;
 
 private double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
 
 private CANAnalog a_Encoder;
+*/
 
 private PIDController anglePID;
 
-private AnalogInput encoder;
+private final double MAX_VOLTS = 5;
 
 
 public WheelDrive (int angleMotor, int speedMotor, int analogIn) { //Idk if this is even close to correct...
@@ -35,9 +37,10 @@ public WheelDrive (int angleMotor, int speedMotor, int analogIn) { //Idk if this
 	this.angleMotor = new CANSparkMax(angleMotor, MotorType.kBrushless);
 	this.speedMotor = new CANSparkMax(speedMotor, MotorType.kBrushless);
 
-	encoder = new AnalogInput(analogIn);
+	anglePID = new PIDController(0.5, 0.01, 0.01, new AnalogInput(analogIn), this.angleMotor);
 
-	anglePID = new PIDController(0.001, 1, 1, encoder, this.angleMotor);
+	anglePID.setOutputRange(-1, 1);
+	anglePID.enable();
 
 	/*
 	//grab the encoder values off of each MAX
@@ -74,10 +77,21 @@ public WheelDrive (int angleMotor, int speedMotor, int analogIn) { //Idk if this
 
 public void drive (double speed, double angle) {
 	
-	speedMotor.set(speed);
+	speedMotor.set(speed * 0.25);
 
-	anglePID.enable();
-	anglePID.setSetpoint(angle);
+	double setpoint = angle * (MAX_VOLTS * 0.5) + (MAX_VOLTS * 0.5);
+
+	if (setpoint < 0){
+
+		setpoint = MAX_VOLTS + setpoint;
+	}
+
+	if (setpoint > MAX_VOLTS){
+
+		setpoint = setpoint - MAX_VOLTS;
+	}
+
+	anglePID.setSetpoint(setpoint);
 
 	//m_pidController.setReference(angle, ControlType.kPosition);          //and so it starts to chug along (not slowly tho) ((hopefully))
 }
