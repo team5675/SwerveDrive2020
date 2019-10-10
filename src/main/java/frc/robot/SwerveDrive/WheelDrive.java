@@ -1,11 +1,13 @@
 package frc.robot.SwerveDrive;
 
-import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANAnalog;
+
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.AnalogInput;
 
 
 public class WheelDrive {
@@ -20,8 +22,12 @@ private double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
 
 private CANAnalog a_Encoder;
 
+private PIDController anglePID;
 
-public WheelDrive (int angleMotor, int speedMotor) { //Idk if this is even close to correct...
+private AnalogInput encoder;
+
+
+public WheelDrive (int angleMotor, int speedMotor, int analogIn) { //Idk if this is even close to correct...
 
 	//CANEncoder m_encoder;
 	
@@ -29,6 +35,11 @@ public WheelDrive (int angleMotor, int speedMotor) { //Idk if this is even close
 	this.angleMotor = new CANSparkMax(angleMotor, MotorType.kBrushless);
 	this.speedMotor = new CANSparkMax(speedMotor, MotorType.kBrushless);
 
+	encoder = new AnalogInput(analogIn);
+
+	anglePID = new PIDController(0.001, 1, 1, encoder, this.angleMotor);
+
+	/*
 	//grab the encoder values off of each MAX
 	a_Encoder = this.angleMotor.getAnalog(CANAnalog.AnalogMode.kAbsolute);
 
@@ -57,6 +68,7 @@ public WheelDrive (int angleMotor, int speedMotor) { //Idk if this is even close
     m_pidController.setIZone(kIz);
     m_pidController.setFF(kFF);
 	m_pidController.setOutputRange(kMinOutput, kMaxOutput);
+	*/
 }
 
 
@@ -64,6 +76,9 @@ public void drive (double speed, double angle) {
 	
 	speedMotor.set(speed);
 
-	m_pidController.setReference(angle, ControlType.kPosition);          //and so it starts to chug along (not slowly tho) ((hopefully))
+	anglePID.enable();
+	anglePID.setSetpoint(angle);
+
+	//m_pidController.setReference(angle, ControlType.kPosition);          //and so it starts to chug along (not slowly tho) ((hopefully))
 }
 }
