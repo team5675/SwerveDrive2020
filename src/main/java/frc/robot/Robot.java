@@ -78,7 +78,7 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		
 		
-		swerveDrive.drive (Controller.getRawAxis(1) * -1, Controller.getRawAxis(0), Controller.getRawAxis(4), ahrs.getYaw()); //get them inputs
+		swerveDrive.drive (Controller.getRawAxis(1), Controller.getRawAxis(0), Controller.getRawAxis(4), ahrs.getYaw()); //get them inputs
 	}
 
 	
