@@ -17,6 +17,11 @@ private PIDController anglePID;
 private Encoder azimuthEncoder;
 
 
+	/**
+	 @param angleMotor The CAN ID of the azimuth controller
+	 @param speedMotor The CAN ID of the speed controller
+	 @param analogIn   The Analog ID of the azimuth encoder 
+ 	*/
 	public WheelDrive (int angleMotor, int speedMotor, int analogIn) { //Idk if this is even close to correct...
 	
 		//create our "wheels"
@@ -26,6 +31,7 @@ private Encoder azimuthEncoder;
 		anglePID = new PIDController(0.5, 0.01, 0.01, this.azimuthEncoder.setUp(analogIn), this.angleMotor);
 
 		anglePID.setOutputRange(-1, 1);
+		anglePID.setInputRange(0, 2*Math.PI);
 		anglePID.enable();
 		anglePID.setContinuous();
 	}
@@ -35,7 +41,7 @@ private Encoder azimuthEncoder;
 	
 		speedMotor.set(speed * 0.25);
 
-		double setpoint = angle * azimuthEncoder.toDegrees();
+		double setpoint = angle;
 
 		anglePID.setSetpoint(setpoint);
 	}

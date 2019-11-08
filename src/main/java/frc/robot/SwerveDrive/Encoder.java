@@ -1,6 +1,8 @@
 package frc.robot.SwerveDrive;
 
+
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Encoder {
 
@@ -22,9 +24,14 @@ public class Encoder {
      */
     public double toDegrees() {
 
-        //output is 0 to 360;
+        // output is 0 to 360;
         double degrees = azimuthEncoder.getVoltage() * 72;
 
         return degrees;
+    }
+
+    public void displayValues() {
+
+        SmartDashboard.putNumber("Encoder Position", azimuthEncoder.getVoltage() * 72);
     }
 }

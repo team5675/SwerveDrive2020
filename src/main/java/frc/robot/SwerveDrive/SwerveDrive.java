@@ -14,9 +14,9 @@ public class SwerveDrive {
 	
 	
 	public void drive (double x1, double y1, double rotation, double theta) {
-		double r = Math.sqrt((L * L) + (W * W));
-		y1 *= -1; //if axis is funky
-		
+
+		double r = Math.hypot(L, W);
+	
 		
 		double foward = y1 * Math.cos(theta) + x1 * Math.sin(theta); // field-centricishy??
 		
@@ -52,13 +52,13 @@ public class SwerveDrive {
 		
 
 		//Output is 0 to 360 degrees
-		double backRightAngle 	= (Math.atan2(a, d) * 180 / Math.PI + ANGLE_OFFSET1) + (180); 
+		double backRightAngle 	= (Math.atan2(a, d) + Math.PI) * (180/Math.PI) + ANGLE_OFFSET1; 
 		
-		double backLeftAngle 	= (Math.atan2(a, c) * 180 / Math.PI + ANGLE_OFFSET2) + (180);
+		double backLeftAngle 	= (Math.atan2(a, c) + Math.PI) * (180/Math.PI) + ANGLE_OFFSET2;
 		
-		double frontRightAngle	= (Math.atan2(b, d) * 180 / Math.PI + ANGLE_OFFSET3) + (180);
+		double frontRightAngle	= (Math.atan2(b, d) + Math.PI) * (180/Math.PI) + ANGLE_OFFSET3;
 		
-		double frontLeftAngle	= (Math.atan2(b, c) * 180 / Math.PI + ANGLE_OFFSET4) + (180);
+		double frontLeftAngle	= (Math.atan2(b, c) + Math.PI) * (180/Math.PI) + ANGLE_OFFSET4;
 
 		//normalize wheel speeds
         double max = backRightSpeed;
@@ -107,4 +107,4 @@ public class SwerveDrive {
 			this.frontLeft = frontLeft;
 			
 		}
-		}
+}
