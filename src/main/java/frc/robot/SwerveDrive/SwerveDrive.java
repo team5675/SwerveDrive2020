@@ -18,12 +18,12 @@ public class SwerveDrive {
 		double r = Math.hypot(L, W);
 	
 		
-		double foward = y1 * Math.cos(theta) + x1 * Math.sin(theta); // field-centricishy??
+		double foward = y1 * Math.cos(theta) + x1 * Math.sin(theta); //allows for field centric control
 		
 		double strafe = -y1 * Math.sin(theta) + x1 * Math.cos(theta);
 		
 		
-		double a = strafe - rotation * (L / r); //quick mafs for figuring speed and angles later
+		double a = strafe - rotation * (L / r); //placeholder vector values
 		
 		double b = strafe + rotation * (L / r);
 		
@@ -63,15 +63,15 @@ public class SwerveDrive {
 		//normalize wheel speeds
         double max = backRightSpeed;
 
-        if (backLeftSpeed > max) { max = backLeftSpeed;}
-        if (frontLeftSpeed > max) { max = frontLeftSpeed;}
+        if (backLeftSpeed > max)   { max = backLeftSpeed;}
+        if (frontLeftSpeed > max)  { max = frontLeftSpeed;}
         if (frontRightSpeed > max) { max = frontRightSpeed;}
 
         if (max > 1) {
 
-            backRightSpeed /= max;
-            backLeftSpeed /= max;
-            frontLeftSpeed /= max;
+            backRightSpeed  /= max;
+            backLeftSpeed   /= max;
+            frontLeftSpeed  /= max;
             frontRightSpeed /= max;
         }
 		

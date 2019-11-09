@@ -3,6 +3,7 @@ package frc.robot.SwerveDrive;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+//import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.PIDController;
 
 import frc.robot.SwerveDrive.Encoder;
@@ -13,6 +14,7 @@ private CANSparkMax angleMotor;
 private CANSparkMax speedMotor;
 
 private PIDController anglePID;
+//private AnalogInput aziuthEncoder;
 
 private Encoder azimuthEncoder;
 
@@ -41,7 +43,8 @@ private Encoder azimuthEncoder;
 	
 		speedMotor.set(speed * 0.25);
 
-		double setpoint = angle;
+		//scale angle output to 0 to 5 (because of encoder)
+		double setpoint = angle / 72;
 
 		anglePID.setSetpoint(setpoint);
 	}

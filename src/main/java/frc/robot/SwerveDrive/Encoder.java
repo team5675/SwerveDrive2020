@@ -30,6 +30,9 @@ public class Encoder {
         return degrees;
     }
 
+    /**
+     * Returns encoder value in degrees
+     */
     public void displayValues() {
 
         SmartDashboard.putNumber("Encoder Position", azimuthEncoder.getVoltage() * 72);
