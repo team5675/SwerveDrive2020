@@ -3,10 +3,10 @@ package frc.robot.SwerveDrive;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-//import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.PIDController;
 
-import frc.robot.SwerveDrive.Encoder;
+//import frc.robot.SwerveDrive.Encoder;
 
 public class WheelDrive {
 	
@@ -14,9 +14,9 @@ private CANSparkMax angleMotor;
 private CANSparkMax speedMotor;
 
 private PIDController anglePID;
-//private AnalogInput aziuthEncoder;
+//private AnalogInput azimuthEncoder;
 
-private Encoder azimuthEncoder;
+//private Encoder azimuthEncoder;
 
 
 	/**
@@ -30,10 +30,10 @@ private Encoder azimuthEncoder;
 		this.angleMotor = new CANSparkMax(angleMotor, MotorType.kBrushless);
 		this.speedMotor = new CANSparkMax(speedMotor, MotorType.kBrushless);
 
-		anglePID = new PIDController(0.5, 0.01, 0.01, this.azimuthEncoder.setUp(analogIn), this.angleMotor);
+		anglePID = new PIDController(0.379976, 0.0001, 0.0001, new AnalogInput(analogIn), this.angleMotor);
 
 		anglePID.setOutputRange(-1, 1);
-		anglePID.setInputRange(0, 2*Math.PI);
+		anglePID.setInputRange(0, 5);
 		anglePID.enable();
 		anglePID.setContinuous();
 	}
