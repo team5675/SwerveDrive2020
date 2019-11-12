@@ -7,7 +7,7 @@ public class SwerveDrive {
 	public double L = 30;//length of wheel axle distances
 	public double W = 28;//width of wheel axle distances
 
-	public final double ANGLE_OFFSET1 = 0; //in degrees
+	public final double ANGLE_OFFSET1 = -92; //in degrees
 	public final double ANGLE_OFFSET2 = 0; //in degrees
 	public final double ANGLE_OFFSET3 = 0; //in degrees
 	public final double ANGLE_OFFSET4 = 0; //in degrees
@@ -18,18 +18,22 @@ public class SwerveDrive {
 		double r = Math.hypot(L, W);
 	
 		
-		double foward = y1 * Math.cos(theta) + x1 * Math.sin(theta); //allows for field centric control
+		double temp = y1 * Math.cos(Math.toRadians(theta)) + x1 * Math.sin(Math.toRadians(theta)); //allows for field centric control
 		
-		double strafe = -y1 * Math.sin(theta) + x1 * Math.cos(theta);
+		double strafe = -y1 * Math.sin(Math.toRadians(theta)) + x1 * Math.cos(Math.toRadians(theta));
+
+		double forward = temp;
 		
+		//double forward = x1;
+		//double strafe = -y1;
 		
 		double a = strafe - rotation * (L / r); //placeholder vector values
 		
 		double b = strafe + rotation * (L / r);
 		
-		double c = foward - rotation * (W / r);
+		double c = forward - rotation * (W / r);
 		
-		double d = foward + rotation * (W / r);
+		double d = forward + rotation * (W / r);
 		
 		
 		double backRightSpeed = 0; //calculating speed
@@ -52,7 +56,7 @@ public class SwerveDrive {
 		
 
 		//Output is 0 to 360 degrees
-		double backRightAngle 	= (Math.atan2(a, d) + Math.PI) * (180/Math.PI) + ANGLE_OFFSET1; 
+		double backRightAngle 	= ((Math.atan2(a, d) + Math.PI) * (180/Math.PI)) + ANGLE_OFFSET1; 
 		
 		double backLeftAngle 	= (Math.atan2(a, c) + Math.PI) * (180/Math.PI) + ANGLE_OFFSET2;
 		
