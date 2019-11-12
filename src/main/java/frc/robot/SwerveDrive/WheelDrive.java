@@ -33,7 +33,6 @@ private PIDController anglePID;
 		anglePID = new PIDController(0.379976, 0.0001, 0.0001, new AnalogInput(analogIn), this.angleMotor);
 
 		anglePID.setOutputRange(-1, 1);
-		anglePID.setInputRange(0, 5);
 		anglePID.enable();
 		anglePID.setContinuous();
 	}

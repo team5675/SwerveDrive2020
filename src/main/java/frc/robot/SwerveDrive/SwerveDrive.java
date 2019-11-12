@@ -12,7 +12,13 @@ public class SwerveDrive {
 	public final double ANGLE_OFFSET3 = 0; //in degrees
 	public final double ANGLE_OFFSET4 = 0; //in degrees
 	
-	
+	/**
+	 * 
+	 * @param x1 Forward input
+	 * @param y1 Strafe input
+	 * @param rotation Azimuth input
+	 * @param theta Gyro Yaw input
+	 */
 	public void drive (double x1, double y1, double rotation, double theta) {
 
 		double r = Math.hypot(L, W);
@@ -24,8 +30,6 @@ public class SwerveDrive {
 
 		double forward = temp;
 		
-		//double forward = x1;
-		//double strafe = -y1;
 		
 		double a = strafe - rotation * (L / r); //placeholder vector values
 		
@@ -58,11 +62,11 @@ public class SwerveDrive {
 		//Output is 0 to 360 degrees
 		double backRightAngle 	= ((Math.atan2(a, d) + Math.PI) * (180/Math.PI)) + ANGLE_OFFSET1; 
 		
-		double backLeftAngle 	= (Math.atan2(a, c) + Math.PI) * (180/Math.PI) + ANGLE_OFFSET2;
+		double backLeftAngle 	= ((Math.atan2(a, c) + Math.PI) * (180/Math.PI)) + ANGLE_OFFSET2;
 		
-		double frontRightAngle	= (Math.atan2(b, d) + Math.PI) * (180/Math.PI) + ANGLE_OFFSET3;
+		double frontRightAngle	= ((Math.atan2(b, d) + Math.PI) * (180/Math.PI)) + ANGLE_OFFSET3;
 		
-		double frontLeftAngle	= (Math.atan2(b, c) + Math.PI) * (180/Math.PI) + ANGLE_OFFSET4;
+		double frontLeftAngle	= ((Math.atan2(b, c) + Math.PI) * (180/Math.PI)) + ANGLE_OFFSET4;
 
 		//normalize wheel speeds
         double max = backRightSpeed;
