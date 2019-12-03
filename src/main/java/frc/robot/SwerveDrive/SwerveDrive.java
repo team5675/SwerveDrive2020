@@ -12,7 +12,13 @@ public class SwerveDrive {
 	public final double ANGLE_OFFSET3 = 0; 
 	public final double ANGLE_OFFSET4 = 0; 
 	
-	
+	/**
+	 * 
+	 * @param x1 Forward input
+	 * @param y1 Strafe input
+	 * @param rotation Azimuth input
+	 * @param theta Gyro Yaw input
+	 */
 	public void drive (double x1, double y1, double rotation, double theta) {
 
 		double r = Math.hypot(L, W);
@@ -24,8 +30,6 @@ public class SwerveDrive {
 
 		double forward = temp;
 		
-		//double forward = x1;
-		//double strafe = -y1;
 		
 		double a = strafe - rotation  * (L / r); //placeholder vector values
 		
