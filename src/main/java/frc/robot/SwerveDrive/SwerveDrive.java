@@ -4,13 +4,13 @@ package frc.robot.SwerveDrive;
 
 public class SwerveDrive {
 
-	public double L = 30;//length of wheel axle distances
-	public double W = 28;//width of wheel axle distances
+	public double L = 25;//length of wheel axle distances
+	public double W = 25;//width of wheel axle distances
 
-	public final double ANGLE_OFFSET1 = -92; //in degrees
-	public final double ANGLE_OFFSET2 = 0; //in degrees
-	public final double ANGLE_OFFSET3 = 0; //in degrees
-	public final double ANGLE_OFFSET4 = 0; //in degrees
+	public final double ANGLE_OFFSET1 = 0; //from 0 to 5
+	public final double ANGLE_OFFSET2 = 0; 
+	public final double ANGLE_OFFSET3 = 0; 
+	public final double ANGLE_OFFSET4 = 0; 
 	
 	
 	public void drive (double x1, double y1, double rotation, double theta) {
@@ -27,9 +27,9 @@ public class SwerveDrive {
 		//double forward = x1;
 		//double strafe = -y1;
 		
-		double a = strafe - rotation * (L / r); //placeholder vector values
+		double a = strafe - rotation  * (L / r); //placeholder vector values
 		
-		double b = strafe + rotation * (L / r);
+		double b = strafe + rotation  * (L / r);
 		
 		double c = forward - rotation * (W / r);
 		
@@ -48,7 +48,7 @@ public class SwerveDrive {
 		//Output is 0 to 1
 		backRightSpeed = Math.hypot(a, d);
 			
-		backLeftSpeed = Math.hypot(a, c);;
+		backLeftSpeed = Math.hypot(a, c);
 					
 		frontRightSpeed = Math.hypot(b, d);
 					
@@ -56,13 +56,25 @@ public class SwerveDrive {
 		
 
 		//Output is 0 to 360 degrees
-		double backRightAngle 	= ((Math.atan2(a, d) + Math.PI) * (180/Math.PI)) + ANGLE_OFFSET1; 
+		double backRightAngle 	= (((Math.atan2(a, d) / Math.PI) * 2.5) + 2.5) + ANGLE_OFFSET1; 
+
+		if (backRightAngle > 5) {backRightAngle = backRightAngle - 5;}
+		if (backRightAngle < 0) {backRightAngle = 5 - backRightAngle;}
 		
-		double backLeftAngle 	= (Math.atan2(a, c) + Math.PI) * (180/Math.PI) + ANGLE_OFFSET2;
+		double backLeftAngle 	= (((Math.atan2(a, c) / Math.PI) * 2.5) + 2.5) + ANGLE_OFFSET2;
+
+		if (backLeftAngle > 5) {backLeftAngle = backLeftAngle - 5;}
+		if (backLeftAngle < 0) {backLeftAngle = 5 - backLeftAngle;}
+		//									-1 to 1		   -2.5 to 2.5   0 to 5  whatever the fuck it wants to be
+		double frontRightAngle	= (((Math.atan2(b, d) / Math.PI) * 2.5) + 2.5) + ANGLE_OFFSET3;
 		
-		double frontRightAngle	= (Math.atan2(b, d) + Math.PI) * (180/Math.PI) + ANGLE_OFFSET3;
-		
-		double frontLeftAngle	= (Math.atan2(b, c) + Math.PI) * (180/Math.PI) + ANGLE_OFFSET4;
+		if (frontRightAngle > 5) {frontRightAngle = frontRightAngle - 5;}
+		if (frontRightAngle < 0) {frontRightAngle = 5 - frontRightAngle;}
+
+		double frontLeftAngle	= (((Math.atan2(b, c) / Math.PI) * 2.5) + 2.5) + ANGLE_OFFSET4;
+
+		if (frontLeftAngle > 5) {frontLeftAngle = frontLeftAngle - 5;}
+		if (frontLeftAngle < 0) {frontLeftAngle = 5 - frontLeftAngle;}
 
 		//normalize wheel speeds
         double max = backRightSpeed;

@@ -14,7 +14,7 @@ private CANSparkMax angleMotor;
 private CANSparkMax speedMotor;
 
 private PIDController anglePID;
-//private AnalogInput azimuthEncoder;
+private AnalogInput azimuthEncoder;
 
 //private Encoder azimuthEncoder;
 
@@ -30,7 +30,11 @@ private PIDController anglePID;
 		this.angleMotor = new CANSparkMax(angleMotor, MotorType.kBrushless);
 		this.speedMotor = new CANSparkMax(speedMotor, MotorType.kBrushless);
 
-		anglePID = new PIDController(0.379976, 0.0001, 0.0001, new AnalogInput(analogIn), this.angleMotor);
+		
+		this.azimuthEncoder = new AnalogInput(analogIn);
+
+		
+		anglePID = new PIDController(0.52314, 0.0002, 0.0001, azimuthEncoder, this.angleMotor);
 
 		anglePID.setOutputRange(-1, 1);
 		anglePID.setInputRange(0, 5);
@@ -41,10 +45,11 @@ private PIDController anglePID;
 
 	public void drive (double speed, double angle) {
 	
-		speedMotor.set(speed * 0.25);
+		speedMotor.set(speed * .35);
 
-		//scale angle output to 0 to 5 (because of encoder)
-		double setpoint = angle / 72;
+		//System.out.println(azimuthEncoder.getVoltage());
+
+		double setpoint = angle;
 
 		anglePID.setSetpoint(setpoint);
 	}
