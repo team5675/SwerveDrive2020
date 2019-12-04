@@ -20,21 +20,25 @@ import frc.robot.SwerveDrive.WheelDrive;
 public class Robot extends TimedRobot {
 
 	AHRS ahrs;
-	
+	/*
 	public  AnalogInput backRightEncoder 	= new AnalogInput(0);
 	public  AnalogInput backLeftEncoder 	= new AnalogInput(1);
 	public  AnalogInput frontRightEncoder 	= new AnalogInput(2);
 	public  AnalogInput frontLeftEncoder 	= new AnalogInput(3);
-	
+	*/
 	public  GenericHID 	Controller  = new XboxController (0);
-	/*
+	//frontleft --> frontright
+	//frontright --> backright
+	//backright --> backleft
+	//backleft --> frontleft
+
 	private WheelDrive 	backRight 	= new WheelDrive(3, 4, 0);//actual  port ID's of angle and speed motors
 	private WheelDrive 	backLeft 	= new WheelDrive(1, 2, 1);//(In that order)
 	private WheelDrive 	frontRight	= new WheelDrive(5, 6, 2);
 	private WheelDrive 	frontLeft 	= new WheelDrive(7, 8, 3);
 	
 	private SwerveDrive swerveDrive = new SwerveDrive (backRight, backLeft, frontRight, frontLeft);
-*/
+
 	NetworkTableEntry encoderValue;
 	
 	@Override
@@ -44,7 +48,7 @@ public class Robot extends TimedRobot {
             ahrs = new AHRS(SPI.Port.kMXP); 
         } catch (RuntimeException ex ) {
             DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
-        }
+		}
 	}
 
 
@@ -83,13 +87,13 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		 
 		
-		//swerveDrive.drive (Controller.getRawAxis(1), Controller.getRawAxis(0), Controller.getRawAxis(4), ahrs.getYaw()); //get them inputs
-		
+		swerveDrive.drive (Controller.getRawAxis(1), Controller.getRawAxis(0), Controller.getRawAxis(4), ahrs.getAngle()); //get them inputs
+		/*
 		System.out.print("Back Right Encoder: " + backRightEncoder.getVoltage());
 		System.out.print("Back Left Encoder: " + backLeftEncoder.getVoltage());
 		System.out.print("Front Right Encoder: " + frontRightEncoder.getVoltage());
 		System.out.println("Front Left Encoder: " + frontLeftEncoder.getVoltage());
-		
+		*/
 	}
 
 	

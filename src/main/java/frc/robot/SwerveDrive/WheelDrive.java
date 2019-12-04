@@ -34,9 +34,10 @@ private AnalogInput azimuthEncoder;
 		this.azimuthEncoder = new AnalogInput(analogIn);
 
 		
-		anglePID = new PIDController(0.52314, 0.0002, 0.0001, azimuthEncoder, this.angleMotor);
+		anglePID = new PIDController(0.68814, 0.0004, 0.000, azimuthEncoder, this.angleMotor);
 
 		anglePID.setOutputRange(-1, 1);
+		anglePID.setInputRange(0, 5);
 		anglePID.enable();
 		anglePID.setContinuous();
 	}
@@ -44,7 +45,7 @@ private AnalogInput azimuthEncoder;
 
 	public void drive (double speed, double angle) {
 	
-		speedMotor.set(speed * .35);
+		speedMotor.set(speed * .75);
 
 		//System.out.println(azimuthEncoder.getVoltage());
 
