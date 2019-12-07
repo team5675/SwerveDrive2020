@@ -14,9 +14,14 @@ private CANSparkMax angleMotor;
 private CANSparkMax speedMotor;
 
 private PIDController anglePID;
-private AnalogInput azimuthEncoder;
 
-//private Encoder azimuthEncoder;
+private int accum;
+
+public AnalogInput[] encoderArray = {new AnalogInput(0), new AnalogInput(1), new AnalogInput(2), new AnalogInput(3)};
+private double[] PValues = {0.68814, 0, 0, 0};
+private double[] IValues = {0.0004, 0, 0, 0};
+private double[] DValues = {0, 0, 0, 0};
+
 
 
 	/**
@@ -26,15 +31,13 @@ private AnalogInput azimuthEncoder;
  	*/
 	public WheelDrive (int angleMotor, int speedMotor, int analogIn) {
 	
+		accum = analogIn;
+
 		//create our "wheels"
 		this.angleMotor = new CANSparkMax(angleMotor, MotorType.kBrushless);
 		this.speedMotor = new CANSparkMax(speedMotor, MotorType.kBrushless);
 
-		
-		this.azimuthEncoder = new AnalogInput(analogIn);
-
-		
-		anglePID = new PIDController(0.68814, 0.0004, 0.000, azimuthEncoder, this.angleMotor);
+		anglePID = new PIDController(PValues[accum], IValues[accum], DValues[accum], encoderArray[accum], this.angleMotor);
 
 		anglePID.setOutputRange(-1, 1);
 		anglePID.setInputRange(0, 5);
@@ -48,6 +51,9 @@ private AnalogInput azimuthEncoder;
 		speedMotor.set(speed * .75);
 
 		//System.out.println(azimuthEncoder.getVoltage());
+
+		if (angle > 5) {angle = angle - 5;}
+		if (angle < 0) {angle = 5 - angle;}
 
 		double setpoint = angle;
 
