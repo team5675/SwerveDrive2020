@@ -45,7 +45,7 @@ private AnalogInput azimuthEncoder;
 
 	public void drive (double speed, double angle) {
 	
-		speedMotor.set(speed * .75);
+		speedMotor.set(speed);
 
 		//System.out.println(azimuthEncoder.getVoltage());
 

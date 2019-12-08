@@ -7,9 +7,9 @@ public class SwerveDrive {
 	public double L = 25;//length of wheel axle distances
 	public double W = 25;//width of wheel axle distances
 //backright backleft frontright frontleft
-	public final double ANGLE_OFFSET1 = 1.199; //from 0 to 5
-	public final double ANGLE_OFFSET2 = 0.635;
-	public final double ANGLE_OFFSET3 = 4.387;
+	public final double ANGLE_OFFSET1 = 3.673; //from 0 to 5
+	public final double ANGLE_OFFSET2 = 0.476;
+	public final double ANGLE_OFFSET3 = 1.985;
 	public final double ANGLE_OFFSET4 = 3.868;
 	
 	/**
@@ -50,13 +50,13 @@ public class SwerveDrive {
 		
 		
 		//Output is 0 to 1
-		backRightSpeed = Math.hypot(a, d);
+		backRightSpeed = Math.hypot(a, c);
 			
-		backLeftSpeed = Math.hypot(a, c);
+		backLeftSpeed = Math.hypot(a, d);
+
+		frontRightSpeed = Math.hypot(b, c);
 					
-		frontRightSpeed = Math.hypot(b, d);
-					
-		frontLeftSpeed = Math.hypot(b, c);
+		frontLeftSpeed = Math.hypot(b, d);
 		
 
 		//Output is 0 to 360 degrees

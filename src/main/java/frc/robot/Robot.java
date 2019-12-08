@@ -31,14 +31,14 @@ public class Robot extends TimedRobot {
 	//frontright --> backright
 	//backright --> backleft
 	//backleft --> frontleft
-
+	
 	private WheelDrive 	backRight 	= new WheelDrive(3, 4, 0);//actual  port ID's of angle and speed motors
 	private WheelDrive 	backLeft 	= new WheelDrive(1, 2, 1);//(In that order)
 	private WheelDrive 	frontRight	= new WheelDrive(5, 6, 2);
 	private WheelDrive 	frontLeft 	= new WheelDrive(7, 8, 3);
 	
 	private SwerveDrive swerveDrive = new SwerveDrive (backRight, backLeft, frontRight, frontLeft);
-
+	
 	NetworkTableEntry encoderValue;
 	
 	@Override
@@ -93,7 +93,7 @@ public class Robot extends TimedRobot {
 		System.out.print("Back Left Encoder: " + backLeftEncoder.getVoltage());
 		System.out.print("Front Right Encoder: " + frontRightEncoder.getVoltage());
 		System.out.println("Front Left Encoder: " + frontLeftEncoder.getVoltage());
-		*/
+		*/;
 	}
 
 	
