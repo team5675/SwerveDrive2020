@@ -106,6 +106,11 @@ public class SwerveDrive {
 		
 		frontLeft.drive(0, -0.7125);
 	}
+
+	public void autoDrive(double strafeError, double ForwardError, double azimuthError) {
+
+		//place in logic code for vision to inject angle and speed values to modules
+	}
 	
 		private WheelDrive backRight;
 		

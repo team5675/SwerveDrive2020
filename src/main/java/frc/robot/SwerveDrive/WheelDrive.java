@@ -25,13 +25,13 @@ private double[] DValues = {0, 0, 0, 0};
 
 
 	/**
-	 @param angleMotor The CAN ID of the azimuth controller
-	 @param speedMotor The CAN ID of the speed controller
-	 @param analogIn   The Analog ID of the azimuth encoder 
+	 @param angleMotor 	The CAN ID of the azimuth controller
+	 @param speedMotor 	The CAN ID of the speed controller
+	 @param wheelNumber	The order of the modules (backRight(0) - frontLeft(3))  
  	*/
-	public WheelDrive (int angleMotor, int speedMotor, int analogIn) {
+	public WheelDrive (int angleMotor, int speedMotor, int wheelNumber) {
 	
-		accum = analogIn;
+		accum = wheelNumber;
 
 		//create our "wheels"
 		this.angleMotor = new CANSparkMax(angleMotor, MotorType.kBrushless);

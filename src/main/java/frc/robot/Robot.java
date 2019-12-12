@@ -81,13 +81,21 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		 
-		
-		swerveDrive.drive (Controller.getRawAxis(1), Controller.getRawAxis(0), Controller.getRawAxis(4), ahrs.getAngle()); //get them inputs
+		if (Controller.getBButton()) {
+
+			//maybe grab raw values from networkTables?
+			swerveDrive.autoDrive(0, 0, 0);
+		}
+		else {
+			swerveDrive.drive(Controller.getRawAxis(1), Controller.getRawAxis(0), Controller.getRawAxis(4), ahrs.getAngle()); //get them inputs
+		}
+
 
 		for(int i=0; i < WheelDrive.encoderArray.length; i++) {
 
 			System.out.println(WheelDrive.encoderArray[i].getVoltage());
 		}
+
 
 		if (Controller.getAButton()) {
 
