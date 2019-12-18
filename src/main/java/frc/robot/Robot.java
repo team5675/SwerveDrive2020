@@ -81,6 +81,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		 
+<<<<<<< Updated upstream
 		if (Controller.getBButton()) {
 
 			//maybe grab raw values from networkTables?
@@ -101,6 +102,16 @@ public class Robot extends TimedRobot {
 
 			swerveDrive.defense();
 		}
+=======
+		
+		swerveDrive.drive (Controller.getRawAxis(1), Controller.getRawAxis(0), Controller.getRawAxis(4), ahrs.getAngle() - 90); //get them inputs
+		/*
+		System.out.print("Back Right Encoder: " + backRightEncoder.getVoltage());
+		System.out.print("Back Left Encoder: " + backLeftEncoder.getVoltage());
+		System.out.print("Front Right Encoder: " + frontRightEncoder.getVoltage());
+		System.out.println("Front Left Encoder: " + frontLeftEncoder.getVoltage());
+		*/;
+>>>>>>> Stashed changes
 	}
 
 	

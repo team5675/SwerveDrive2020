@@ -13,6 +13,9 @@ public class SwerveDrive {
 	public final double ANGLE_OFFSET3 = 4.387;
 	public final double ANGLE_OFFSET4 = 3.868;
 	
+	private double x1N;
+	private double y1N;
+	private double r1N;
 	/**
 	 * 
 	 * @param x1 Forward input
@@ -23,6 +26,15 @@ public class SwerveDrive {
 	public void drive (double x1, double y1, double rotation, double theta) {
 
 		double r = Math.hypot(L, W);
+
+		if (x1 < 0.1) {x1 = x1N;}
+		else 		  {x1N = x1;}
+
+		if (y1 < 0.1) {y1 = y1N;}
+		else 		  {y1N = y1;}
+
+		if (rotation < 0.1) {rotation = r1N;}
+		else 		  	    {r1N = rotation;}
 	
 		
 		double temp = y1 * Math.cos(Math.toRadians(theta)) + x1 * Math.sin(Math.toRadians(theta)); //allows for field centric control
@@ -85,13 +97,17 @@ public class SwerveDrive {
         }
 		
 		
+<<<<<<< Updated upstream
 		backRight.drive(backRightSpeed, backRightAngle);
+=======
+		backRight.drive(backRightSpeed, backRightAngle, 0); //just using a class to organize modules together
+>>>>>>> Stashed changes
 		
-		backLeft.drive(backLeftSpeed, backLeftAngle);
+		backLeft.drive(backLeftSpeed, backLeftAngle, 1);
 		
-		frontRight.drive(frontRightSpeed, frontRightAngle);
+		frontRight.drive(frontRightSpeed, frontRightAngle, 2);
 		
-		frontLeft.drive(frontLeftSpeed, frontLeftAngle);
+		frontLeft.drive(frontLeftSpeed, frontLeftAngle, 3);
 	
 	}
 	
