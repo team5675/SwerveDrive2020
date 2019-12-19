@@ -87,7 +87,9 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		 
 		
-		swerveDrive.drive (Controller.getRawAxis(1), Controller.getRawAxis(0), Controller.getRawAxis(4), ahrs.getAngle() - 90); //get them inputs
+		swerveDrive.drive (Controller.getRawAxis(1), Controller.getRawAxis(0), Controller.getRawAxis(4), 0); //get them inputs
+
+		//System.out.println("Controller in: " + Controller.getRawAxis(1));
 		/*
 		System.out.print("Back Right Encoder: " + backRightEncoder.getVoltage());
 		System.out.print("Back Left Encoder: " + backLeftEncoder.getVoltage());

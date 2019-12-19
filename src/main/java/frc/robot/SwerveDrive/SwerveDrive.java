@@ -6,11 +6,12 @@ public class SwerveDrive {
 
 	public double L = 25;//length of wheel axle distances
 	public double W = 25;//width of wheel axle distances
-//backright backleft frontright frontleft
-	public final double ANGLE_OFFSET1 = 3.599; //from 0 to 5
-	public final double ANGLE_OFFSET2 = 0.472;
-	public final double ANGLE_OFFSET3 = 1.998;
-	public final double ANGLE_OFFSET4 = 3.839;
+
+	//backright backleft frontright frontleft
+	public final double ANGLE_OFFSET1 = 3.747; //from 0 to 5
+	public final double ANGLE_OFFSET2 = 0.516;
+	public final double ANGLE_OFFSET3 = 2.018;
+	public final double ANGLE_OFFSET4 = 3.914;
 	
 	/**
 	 * 
@@ -126,6 +127,5 @@ public class SwerveDrive {
 			this.frontRight = frontRight;
 			
 			this.frontLeft = frontLeft;
-			
 		}
 }

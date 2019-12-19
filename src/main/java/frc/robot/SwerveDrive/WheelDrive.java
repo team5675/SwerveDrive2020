@@ -34,7 +34,7 @@ private AnalogInput azimuthEncoder;
 		this.azimuthEncoder = new AnalogInput(analogIn);
 
 		
-		anglePID = new PIDController(0.68814, 0.0004, 0.000, azimuthEncoder, this.angleMotor);
+		anglePID = new PIDController(0.78715, 0.0008, 0.0001, azimuthEncoder, this.angleMotor);
 
 		anglePID.setOutputRange(-1, 1);
 		anglePID.setInputRange(0, 5);
@@ -47,10 +47,8 @@ private AnalogInput azimuthEncoder;
 	
 		speedMotor.set(speed);
 
-		//System.out.println(azimuthEncoder.getVoltage());
+		anglePID.setSetpoint(angle);
 
-		double setpoint = angle;
-
-		anglePID.setSetpoint(setpoint);
+		//System.out.println("angle: " + angle + "speed: " + speed);
 	}
 }
