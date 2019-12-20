@@ -6,19 +6,22 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
 import edu.wpi.first.networktables.*;
 
-import com.kauailabs.navx.frc.*;
+import com.kauailabs.navx.frc.AHRS;
 
 import frc.robot.SwerveDrive.SwerveDrive;
 import frc.robot.SwerveDrive.WheelDrive;
 
 public class Robot extends TimedRobot {
 
-	AHRS ahrs;
+	Timer timer = new Timer();
+
+	AHRS navX;
 	/*
 	public  AnalogInput backRightEncoder 	= new AnalogInput(0);
 	public  AnalogInput backLeftEncoder 	= new AnalogInput(1);
@@ -43,12 +46,14 @@ public class Robot extends TimedRobot {
 	
 	@Override
 	public void robotInit() {
-		
+
 		try {
-            ahrs = new AHRS(SPI.Port.kMXP); 
-        } catch (RuntimeException ex ) {
-            DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
+			navX = new AHRS(SPI.Port.kMXP); 
+		} catch (RuntimeException ex ) {
+			DriverStation.reportError("Error instantiating navX-MXP:  " + ex.getMessage(), true);
 		}
+
+		
 	}
 
 
@@ -66,6 +71,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
+
 		
 	}
 
@@ -73,7 +79,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 
-		Scheduler.getInstance().run();
 	}
 
 	
@@ -86,8 +91,18 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		 
+		if (Controller.getBButton()) {
+
+			swerveDrive.zeroEncoders();
+		}
 		
-		swerveDrive.drive (Controller.getRawAxis(1), Controller.getRawAxis(0), Controller.getRawAxis(4), 0); //get them inputs
+		swerveDrive.drive (Controller.getRawAxis(1), Controller.getRawAxis(0), Controller.getRawAxis(4), navX.getAngle() - 90); //get them inputs
+
+		if (Controller.getAButton()) {
+
+			navX.zeroYaw();
+			System.out.println("Zeroed.");
+		}
 
 		//System.out.println("Controller in: " + Controller.getRawAxis(1));
 		/*

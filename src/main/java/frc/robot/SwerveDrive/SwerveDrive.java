@@ -4,14 +4,18 @@ package frc.robot.SwerveDrive;
 
 public class SwerveDrive {
 
+	boolean deadband;
+
 	public double L = 25;//length of wheel axle distances
 	public double W = 25;//width of wheel axle distances
 
 	//backright backleft frontright frontleft
-	public final double ANGLE_OFFSET1 = 3.747; //from 0 to 5
-	public final double ANGLE_OFFSET2 = 0.516;
-	public final double ANGLE_OFFSET3 = 2.018;
-	public final double ANGLE_OFFSET4 = 3.914;
+	public double ANGLE_OFFSET1; //= 3.769; //from 0 to 5
+	public double ANGLE_OFFSET2; //= 0.531;
+	public double ANGLE_OFFSET3; //= 1.976;
+	public double ANGLE_OFFSET4; //= 3.883;
+
+	public final double CONTROLLER_DEADBAND = .05;
 	
 	/**
 	 * 
@@ -21,6 +25,14 @@ public class SwerveDrive {
 	 * @param theta Gyro Yaw input
 	 */
 	public void drive (double x1, double y1, double rotation, double theta) {
+
+		if (CONTROLLER_DEADBAND * -1 < x1 && x1 < CONTROLLER_DEADBAND && CONTROLLER_DEADBAND* -1 < y1 && 
+			y1 < CONTROLLER_DEADBAND && CONTROLLER_DEADBAND * -1 < rotation && rotation < CONTROLLER_DEADBAND){
+
+			deadband = true;
+		}
+
+		else{ deadband = false; }
 
 		double r = Math.hypot(L, W);
 	
@@ -95,18 +107,31 @@ public class SwerveDrive {
             frontLeftSpeed  /= max;
             frontRightSpeed /= max;
         }
+
+			backRight.drive(backRightSpeed, backRightAngle, deadband); //just using a class to organize modules together
 		
+			backLeft.drive(backLeftSpeed, backLeftAngle, deadband);
 		
-		backRight.drive(backRightSpeed, backRightAngle); //just using a class to organize modules together
+			frontRight.drive(frontRightSpeed, frontRightAngle, deadband);
 		
-		backLeft.drive(backLeftSpeed, backLeftAngle);
-		
-		frontRight.drive(frontRightSpeed, frontRightAngle);
-		
-		frontLeft.drive(frontLeftSpeed, frontLeftAngle);
-	
+			frontLeft.drive(frontLeftSpeed, frontLeftAngle, deadband);
 	}
-	
+
+
+	public void zeroEncoders(){
+
+		ANGLE_OFFSET1 = backRight.encoderValue;
+
+		ANGLE_OFFSET2 = backLeft.encoderValue;
+
+		ANGLE_OFFSET3 = frontRight.encoderValue;
+
+		ANGLE_OFFSET4 = frontLeft.encoderValue;
+
+		System.out.println(ANGLE_OFFSET1 + " " + ANGLE_OFFSET2 + " " + ANGLE_OFFSET3 + " " + ANGLE_OFFSET4);
+		System.out.println("Encoder Angles Set!");
+	}
+
 		
 		private WheelDrive backRight;
 		

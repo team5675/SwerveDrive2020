@@ -16,6 +16,8 @@ private CANSparkMax speedMotor;
 private PIDController anglePID;
 private AnalogInput azimuthEncoder;
 
+public double encoderValue;
+
 //private Encoder azimuthEncoder;
 
 
@@ -40,15 +42,24 @@ private AnalogInput azimuthEncoder;
 		anglePID.setInputRange(0, 5);
 		anglePID.enable();
 		anglePID.setContinuous();
+
+		encoderValue = azimuthEncoder.getVoltage();
 	}
 
 
-	public void drive (double speed, double angle) {
+	public void drive (double speed, double angle, boolean deadband) {
 	
-		speedMotor.set(speed);
+		if (deadband) {
 
-		anglePID.setSetpoint(angle);
+			speedMotor.set(0);
+			angleMotor.set(0);
+		}
 
+		else{
+
+			speedMotor.set(speed);
+			anglePID.setSetpoint(angle);
+		}
 		//System.out.println("angle: " + angle + "speed: " + speed);
 	}
 }
