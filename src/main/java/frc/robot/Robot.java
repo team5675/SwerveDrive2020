@@ -23,67 +23,70 @@ public class Robot extends TimedRobot {
 
 	AHRS navX;
 	/*
-	public  AnalogInput backRightEncoder 	= new AnalogInput(0);
-	public  AnalogInput backLeftEncoder 	= new AnalogInput(1);
-	public  AnalogInput frontRightEncoder 	= new AnalogInput(2);
-	public  AnalogInput frontLeftEncoder 	= new AnalogInput(3);
-	*/
-	public  XboxController Controller  = new XboxController (0);
+	 * public AnalogInput backRightEncoder = new AnalogInput(0); public AnalogInput
+	 * backLeftEncoder = new AnalogInput(1); public AnalogInput frontRightEncoder =
+	 * new AnalogInput(2); public AnalogInput frontLeftEncoder = new AnalogInput(3);
+	 */
+	public XboxController Controller = new XboxController(0);
 
-	//frontleft --> frontright
-	//frontright --> backright
-	//backright --> backleft
-	//backleft --> frontleft
-	
-	private WheelDrive 	backRight 	= new WheelDrive(3, 4, 0);//actual  port ID's of angle and speed motors
-	private WheelDrive 	backLeft 	= new WheelDrive(1, 2, 1);//(In that order)
-	private WheelDrive 	frontRight	= new WheelDrive(5, 6, 2);
-	private WheelDrive 	frontLeft 	= new WheelDrive(7, 8, 3);
-	
-	private SwerveDrive swerveDrive = new SwerveDrive (backRight, backLeft, frontRight, frontLeft);
-	
+	// frontleft --> frontright
+	// frontright --> backright
+	// backright --> backleft
+	// backleft --> frontleft
+
+	private WheelDrive backRight = new WheelDrive(3, 4, 0, 0.78715, 0.0004, 0.0);// actual port ID's of angle and speed
+																					// motors
+	private WheelDrive backLeft = new WheelDrive(1, 2, 1, 0.79715, 0.0006, 0.0);// (In that order)
+	private WheelDrive frontRight = new WheelDrive(5, 6, 2, 0.68715, 0.0005, 0.0);
+	private WheelDrive frontLeft = new WheelDrive(7, 8, 3, 0.88715, 0.0003, 0.0);
+
+	private SwerveDrive swerveDrive = new SwerveDrive(backRight, backLeft, frontRight, frontLeft);
+
 	NetworkTableEntry encoderValue;
-	
+
 	@Override
 	public void robotInit() {
 
 		try {
-			navX = new AHRS(SPI.Port.kMXP); 
-		} catch (RuntimeException ex ) {
+			navX = new AHRS(SPI.Port.kMXP);
+		} catch (RuntimeException ex) {
 			DriverStation.reportError("Error instantiating navX-MXP:  " + ex.getMessage(), true);
 		}
 
-		
-	}
+		timer.start();
 
+	}
 
 	@Override
 	public void disabledInit() {
-		
+
 	}
 
-	
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
 
-
 	@Override
 	public void autonomousInit() {
 
-		
 	}
 
-	
 	@Override
 	public void autonomousPeriodic() {
 
+		while (timer.get() < 3) {
+
+			swerveDrive.drive(-1, 0, 0, navX.getAngle() - 90);
+		}
+		
+		swerveDrive.drive(0, 0, 0, navX.getAngle() - 90);
 	}
 
 	
 	@Override
 	public void teleopInit() {
+
 		
 	}
 	
@@ -93,10 +96,10 @@ public class Robot extends TimedRobot {
 		 
 		if (Controller.getBButton()) {
 
-			swerveDrive.zeroEncoders();
+			swerveDrive.zeroEncoders();			
 		}
 		
-		swerveDrive.drive (Controller.getRawAxis(1), Controller.getRawAxis(0), Controller.getRawAxis(4), navX.getAngle() - 90); //get them inputs
+		swerveDrive.drive (Controller.getRawAxis(1), Controller.getRawAxis(0), Controller.getRawAxis(4), navX.getAngle() - 90);//navX.getAngle() - 90); //get them inputs
 
 		if (Controller.getAButton()) {
 

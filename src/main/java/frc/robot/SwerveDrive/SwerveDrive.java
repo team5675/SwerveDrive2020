@@ -10,10 +10,10 @@ public class SwerveDrive {
 	public double W = 25;//width of wheel axle distances
 
 	//backright backleft frontright frontleft
-	public double ANGLE_OFFSET1; //= 3.769; //from 0 to 5
-	public double ANGLE_OFFSET2; //= 0.531;
-	public double ANGLE_OFFSET3; //= 1.976;
-	public double ANGLE_OFFSET4; //= 3.883;
+	public double ANGLE_OFFSET1 = 3.769; //from 0 to 5
+	public double ANGLE_OFFSET2 = 0.531;
+	public double ANGLE_OFFSET3 = 1.976;
+	public double ANGLE_OFFSET4 = 3.883;
 
 	public final double CONTROLLER_DEADBAND = .05;
 	
@@ -26,7 +26,7 @@ public class SwerveDrive {
 	 */
 	public void drive (double x1, double y1, double rotation, double theta) {
 
-		if (CONTROLLER_DEADBAND * -1 < x1 && x1 < CONTROLLER_DEADBAND && CONTROLLER_DEADBAND* -1 < y1 && 
+		if (CONTROLLER_DEADBAND * -1 < x1 && x1 < CONTROLLER_DEADBAND && CONTROLLER_DEADBAND * -1 < y1 && 
 			y1 < CONTROLLER_DEADBAND && CONTROLLER_DEADBAND * -1 < rotation && rotation < CONTROLLER_DEADBAND){
 
 			deadband = true;
@@ -106,8 +106,8 @@ public class SwerveDrive {
             backLeftSpeed   /= max;
             frontLeftSpeed  /= max;
             frontRightSpeed /= max;
-        }
-
+		}
+		
 			backRight.drive(backRightSpeed, backRightAngle, deadband); //just using a class to organize modules together
 		
 			backLeft.drive(backLeftSpeed, backLeftAngle, deadband);

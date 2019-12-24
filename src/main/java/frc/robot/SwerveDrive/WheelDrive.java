@@ -26,7 +26,7 @@ public double encoderValue;
 	 @param speedMotor The CAN ID of the speed controller
 	 @param analogIn   The Analog ID of the azimuth encoder 
  	*/
-	public WheelDrive (int angleMotor, int speedMotor, int analogIn) {
+	public WheelDrive (int angleMotor, int speedMotor, int analogIn, double P, double I, double D) {
 	
 		//create our "wheels"
 		this.angleMotor = new CANSparkMax(angleMotor, MotorType.kBrushless);
@@ -36,7 +36,7 @@ public double encoderValue;
 		this.azimuthEncoder = new AnalogInput(analogIn);
 
 		
-		anglePID = new PIDController(0.78715, 0.0008, 0.0001, azimuthEncoder, this.angleMotor);
+		anglePID = new PIDController(P, I, D, azimuthEncoder, this.angleMotor);
 
 		anglePID.setOutputRange(-1, 1);
 		anglePID.setInputRange(0, 5);
