@@ -99,6 +99,7 @@ public class Robot extends TimedRobot {
 			swerveDrive.zeroEncoders();			
 		}
 		
+<<<<<<< Updated upstream
 		swerveDrive.drive (Controller.getRawAxis(1), Controller.getRawAxis(0), Controller.getRawAxis(4), navX.getAngle() - 90);//navX.getAngle() - 90); //get them inputs
 
 		if (Controller.getAButton()) {
@@ -108,6 +109,9 @@ public class Robot extends TimedRobot {
 		}
 
 		//System.out.println("Controller in: " + Controller.getRawAxis(1));
+=======
+		swerveDrive.drive (Controller.getRawAxis(1), Controller.getRawAxis(0), Controller.getRawAxis(4), ahrs.getAngle()- 90); //get them inputs
+>>>>>>> Stashed changes
 		/*
 		System.out.print("Back Right Encoder: " + backRightEncoder.getVoltage());
 		System.out.print("Back Left Encoder: " + backLeftEncoder.getVoltage());
