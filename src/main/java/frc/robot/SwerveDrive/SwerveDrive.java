@@ -10,10 +10,10 @@ public class SwerveDrive {
 	public double W = 25;//width of wheel axle distances
 
 	//backright backleft frontright frontleft
-	public double ANGLE_OFFSET1 = 0;//3.769; //from 0 to 5
-	public double ANGLE_OFFSET2 = 0;//0.531;
-	public double ANGLE_OFFSET3 = 0;//1.976;
-	public double ANGLE_OFFSET4 = 0;//3.883;
+	public double ANGLE_OFFSET1 = 0.5725;//3.769; //from 0 to 5
+	public double ANGLE_OFFSET2 = 4.114;//0.531;
+	public double ANGLE_OFFSET3 = 4.351;//1.976;
+	public double ANGLE_OFFSET4 = 0.279;//3.883;
 
 	public final double CONTROLLER_DEADBAND = .05;
 	
