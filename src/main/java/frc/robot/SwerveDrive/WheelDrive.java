@@ -25,6 +25,9 @@ public double encoderValue;
 	 @param angleMotor The CAN ID of the azimuth controller
 	 @param speedMotor The CAN ID of the speed controller
 	 @param analogIn   The Analog ID of the azimuth encoder 
+	 @param P		   Proportional error for the PID loop
+	 @param I		   Integrated error for the PID loop
+	 @param D		   Derivative error for the PID loop
  	*/
 	public WheelDrive (int angleMotor, int speedMotor, int analogIn, double P, double I, double D) {
 	

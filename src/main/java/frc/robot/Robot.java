@@ -2,7 +2,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -22,20 +21,10 @@ public class Robot extends TimedRobot {
 	Timer timer = new Timer();
 
 	AHRS navX;
-	/*
-	 * public AnalogInput backRightEncoder = new AnalogInput(0); public AnalogInput
-	 * backLeftEncoder = new AnalogInput(1); public AnalogInput frontRightEncoder =
-	 * new AnalogInput(2); public AnalogInput frontLeftEncoder = new AnalogInput(3);
-	 */
+	
 	public XboxController Controller = new XboxController(0);
 
-	// frontleft --> frontright
-	// frontright --> backright
-	// backright --> backleft
-	// backleft --> frontleft
-
-	private WheelDrive backRight = new WheelDrive(3, 4, 0, 0.78715, 0.0004, 0.0);// actual port ID's of angle and speed
-																					// motors
+	private WheelDrive backRight = new WheelDrive(3, 4, 0, 0.78715, 0.0004, 0.0);// actual port ID's of angle and speed motors
 	private WheelDrive backLeft = new WheelDrive(1, 2, 1, 0.79715, 0.0006, 0.0);// (In that order)
 	private WheelDrive frontRight = new WheelDrive(5, 6, 2, 0.68715, 0.0005, 0.0);
 	private WheelDrive frontLeft = new WheelDrive(7, 8, 3, 0.88715, 0.0003, 0.0);
@@ -99,21 +88,13 @@ public class Robot extends TimedRobot {
 			swerveDrive.zeroEncoders();			
 		}
 		
-		swerveDrive.drive (Controller.getRawAxis(1), Controller.getRawAxis(0), Controller.getRawAxis(4), navX.getAngle() - 90);//navX.getAngle() - 90); //get them inputs
+		swerveDrive.drive (Controller.getRawAxis(1), Controller.getRawAxis(0), Controller.getRawAxis(4), navX.getAngle() - 90); //get them inputs
 
 		if (Controller.getAButton()) {
 
 			navX.zeroYaw();
 			System.out.println("Zeroed.");
 		}
-
-		//System.out.println("Controller in: " + Controller.getRawAxis(1));
-		/*
-		System.out.print("Back Right Encoder: " + backRightEncoder.getVoltage());
-		System.out.print("Back Left Encoder: " + backLeftEncoder.getVoltage());
-		System.out.print("Front Right Encoder: " + frontRightEncoder.getVoltage());
-		System.out.println("Front Left Encoder: " + frontLeftEncoder.getVoltage());
-		*/
 	}
 
 	
