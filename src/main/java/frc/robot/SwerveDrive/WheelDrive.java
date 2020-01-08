@@ -4,7 +4,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.controller.PIDController;
 
 //import frc.robot.SwerveDrive.Encoder;
 
@@ -16,18 +16,18 @@ private CANSparkMax speedMotor;
 private PIDController anglePID;
 private AnalogInput azimuthEncoder;
 
+private double setpoint;
+
 public double encoderValue;
-
-//private Encoder azimuthEncoder;
-
 
 	/**
 	 @param angleMotor The CAN ID of the azimuth controller
 	 @param speedMotor The CAN ID of the speed controller
 	 @param analogIn   The Analog ID of the azimuth encoder 
-	 @param P		   Proportional error for the PID loop
-	 @param I		   Integrated error for the PID loop
-	 @param D		   Derivative error for the PID loop
+	 @param P 		   The P constant for the PID loop
+	 @param I 		   The I constant for the PID loop
+	 @param D 		   The D constant for the PID loop
+
  	*/
 	public WheelDrive (int angleMotor, int speedMotor, int analogIn, double P, double I, double D) {
 	
@@ -38,15 +38,12 @@ public double encoderValue;
 		
 		this.azimuthEncoder = new AnalogInput(analogIn);
 
+		anglePID = new PIDController(P, I, D);
+
+		anglePID.enableContinuousInput(0, 5);
+		anglePID.setIntegratorRange(-1, 1);
 		
-		anglePID = new PIDController(P, I, D, azimuthEncoder, this.angleMotor);
-
-		anglePID.setOutputRange(-1, 1);
-		anglePID.setInputRange(0, 5);
-		anglePID.enable();
-		anglePID.setContinuous();
-
-		encoderValue = azimuthEncoder.getVoltage();
+		encoderValue = getAzimuth();
 	}
 
 
@@ -60,9 +57,20 @@ public double encoderValue;
 
 		else{
 
+			setpoint = anglePID.calculate(getAzimuth(), angle);
 			speedMotor.set(speed);
-			anglePID.setSetpoint(angle);
+			angleMotor.set(setpoint);
 		}
-		//System.out.println("angle: " + angle + "speed: " + speed);
+	}
+
+	public double getAzimuth() {
+
+		return azimuthEncoder.getVoltage();
+	}
+
+	public void stop() {
+
+		speedMotor.set(0);
+		angleMotor.set(0);
 	}
 }
